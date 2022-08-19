@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Converter="clr-namespace:BGRecordatorios.Converters"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="BGRecordatorios.Agregar">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converter:Base64ToImageSource x:Key="Base64ToImage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <StackLayout>
+        <StackLayout>
+            <Frame BackgroundColor="Pink">
+                <Label Text="RECORDATORIOS"
+                       TextColor="Black"
+                       FontAttributes="Italic"
+                       HorizontalOptions="Center"/>
+            </Frame>
+        </StackLayout>
+    
+
+        <StackLayout Padding="15">
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                
+                <Image  x:Name="image"
+                        Source="photos"
+                        BackgroundColor="#fce6ea"
+                        Aspect="AspectFit"
+                        HorizontalOptions="FillAndExpand"  
+                        WidthRequest="300"
+                        HeightRequest="220"
+                        IsVisible="{Binding IsImageDefault}">
+                </Image>
+
+                <Image  x:Name="image2"
+                        Source="{Binding Foto,  Converter={StaticResource Base64ToImage}}"
+                        Aspect="AspectFit"
+                        BackgroundColor="#fce6ea"
+                        HorizontalOptions="FillAndExpand" 
+                        WidthRequest="300"
+                        HeightRequest="220"
+                        IsVisible="{Binding IsImageEdit}">  
+                </Image>
+
+                <ImageButton Source="camera"
+                         BackgroundColor="White"
+                         Command="{Binding TomarFotoCommand}"/>
+
+
+            </StackLayout>
+
+            
+
+
+            <Label Text="Descripción:" />
+            <Entry Text="{Binding Descripcion}" 
+                   Keyboard="Text"/>
+
+            <DatePicker x:Name="Fecha"
+                        Format="dd/M/yy"/>
+            
+            <TimePicker x:Name="Hora"/>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="15">
+                <Button Text="Grabar Audio" 
+                        x:Name="btnGrabar"
+                        BackgroundColor="HotPink"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Command="{Binding GrabarCommand}"/>
+
+                <Button Text="Detener Audio" 
+                        x:Name="btnDetener" 
+                        IsEnabled="False"
+                        BackgroundColor="HotPink"
+                        TextColor="White"
+                        CornerRadius="20"
+                        Command="{Binding DetenerCommand}"/>
+            </StackLayout>
+
+            <Button Text="Guardar"
+                    CornerRadius="10"
+                    BackgroundColor="Pink"
+                    Command="{Binding GuardarCommand}"
+                    VerticalOptions="EndAndExpand"/>
+
+            <Button Text="Lista de Recordatorios"
+                    BackgroundColor="Pink"
+                    CornerRadius="10"
+                    Command="{Binding ListarCommand}"/>
+
+        </StackLayout>
+        <StackLayout>
+            <Label Text="By Brenda García"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

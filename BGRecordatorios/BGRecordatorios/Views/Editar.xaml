@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Converter="clr-namespace:BGRecordatorios.Converters"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="BGRecordatorios.Views.Editar">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converter:Base64ToImageSource x:Key="Base64ToImage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <StackLayout>
+            <Frame BackgroundColor="Pink">
+                <Label Text="EDITAR RECORDATORIO"
+                       TextColor="Black"
+                       FontAttributes="Italic"
+                       HorizontalOptions="Center"/>
+            </Frame>
+        </StackLayout>
+
+
+        <StackLayout Padding="15">
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+
+                <Image  x:Name="image"
+                    BackgroundColor="#fce6ea"
+                    Source="photos"
+                    Aspect="AspectFit"
+                    HorizontalOptions="FillAndExpand" 
+                    WidthRequest="300"
+                    HeightRequest="220"
+                    IsVisible="{Binding IsImageDefault}">
+
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TomarFotoCommand}"/>
+                    </Image.GestureRecognizers>
+
+                </Image>
+
+                <ImageButton Source="camera"
+                             BackgroundColor="White"/>
+
+            </StackLayout>
+
+
+            <Label Text="Descripción:" />
+            <Entry Text="{Binding Nombre}" 
+                   Keyboard="Text"/>
+
+            <DatePicker/>
+            <TimePicker/>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="15">
+                <Button Text="Grabar Audio" 
+                        x:Name="btnGrabar"
+                        BackgroundColor="HotPink"
+                        TextColor="White"
+                        CornerRadius="20"/>
+
+                <Button Text="Detener Audio" 
+                        x:Name="btnDetener" 
+                        IsEnabled="False"
+                        BackgroundColor="HotPink"
+                        TextColor="White"
+                        CornerRadius="20"/>
+            </StackLayout>
+
+            <Button Text="Guardar cambios"
+                    CornerRadius="10"
+                    BackgroundColor="Pink"
+                    Command="{Binding GuardarCommand}"
+                    VerticalOptions="EndAndExpand"/>
+            
+        </StackLayout>
+        <StackLayout>
+            <Label Text="By Brenda García"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
