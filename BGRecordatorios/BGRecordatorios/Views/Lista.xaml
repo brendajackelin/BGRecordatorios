@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Converter="clr-namespace:BGRecordatorios.Converters"
              NavigationPage.HasNavigationBar="False"
-             x:Class="BGRecordatorios.Views.Lista">
+             x:Class="BGRecordatorios.Views.Lista"
+             x:Name="CurrentPage">
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -20,6 +21,14 @@
                        HorizontalOptions="Center"/>
             </Frame>
         </StackLayout>
+
+        <StackLayout>
+            <Label Text="Deslice para editar, eliminar o reproducir un recordatorio"
+                       TextColor="Black"
+                       FontAttributes="Italic"
+                       HorizontalOptions="Center"/>
+        </StackLayout>
+        
 
         <StackLayout Padding="15">
 
@@ -49,13 +58,13 @@
                                     <SwipeItem Text="Edit"
                                            IconImageSource="Editar.png"
                                            BackgroundColor="Pink"
-                                           Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.EditarPersonaCommand}"
+                                           Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.EditarRecordatorioCommand}"
                                            CommandParameter="{Binding .}"/>
 
                                     <SwipeItem Text="Delete"
                                            IconImageSource="Delete.png"
                                            BackgroundColor="HotPink"
-                                           Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.EliminarPersonaCommand}"
+                                           Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.EliminarRecordatorioCommand}"
                                            CommandParameter="{Binding .}"/>
 
                                 </SwipeItems>
@@ -64,17 +73,29 @@
                             <Frame BackgroundColor="White"
                                CornerRadius="4"
                                HasShadow="False">
-                                <StackLayout Padding="3,5,0,5"
+                                <StackLayout>
+                                    <StackLayout Padding="3,5,0,5"
                                          Orientation="Horizontal">
-                                    <Image Source="{Binding Foto,  Converter={StaticResource Base64ToImage}}" 
-                                        HeightRequest="24"
-                                        WidthRequest="24"/>
+                                        <Image Source="{Binding Foto,  Converter={StaticResource Base64ToImage}}" 
+                                        HeightRequest="80"
+                                        WidthRequest="90"/>
+                                        <Label FontSize="15"
+                                       Margin="5,0,0,0"
+                                       HorizontalOptions="StartAndExpand" 
+                                       VerticalOptions="Center">
+                                            <Label.Text>
+                                                <Binding Path="Descripcion"/>
+                                            </Label.Text>
+                                        </Label>
+
+                                    </StackLayout>
+
                                     <Label FontSize="15"
                                        Margin="5,0,0,0"
                                        HorizontalOptions="StartAndExpand" 
                                        VerticalOptions="Center">
                                         <Label.Text>
-                                            <Binding Path="Descripcion"/>
+                                            <Binding Path="Fecha"/>
                                         </Label.Text>
                                     </Label>
                                 </StackLayout>

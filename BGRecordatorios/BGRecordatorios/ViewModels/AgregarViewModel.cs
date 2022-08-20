@@ -21,8 +21,8 @@ namespace BGRecordatorios.ViewModels
         #region VARIABLES
 
         private string _Descripcion;
-        private string _Fecha;
-        private string _Hora;
+        private DateTime _Fecha;
+        private TimeSpan _Hora;
         private string _Foto;
         private string _Audio;
         Image imagen;
@@ -57,7 +57,7 @@ namespace BGRecordatorios.ViewModels
             }
         }
 
-        public string Fecha
+        public DateTime Fecha
         {
             get { return _Fecha; }
             set
@@ -67,7 +67,7 @@ namespace BGRecordatorios.ViewModels
             }
         }
 
-        public string Hora
+        public TimeSpan Hora
         {
             get { return _Hora; }
             set
@@ -166,10 +166,12 @@ namespace BGRecordatorios.ViewModels
 
             saveAudio();
 
+            DateTime aaa = new DateTime(Fecha.Year, Fecha.Month, Fecha.Day, Hora.Hours, Hora.Minutes, Hora.Seconds);
+
             Recordatorios rec = new Recordatorios()
             {
                 Descripcion = Descripcion,
-                Fecha = Fecha,
+                Fecha = aaa,
                 Foto = Foto,
                 Audio = AudioPath
             };
@@ -227,21 +229,28 @@ namespace BGRecordatorios.ViewModels
         private void Limpiar()
         {
             Descripcion = "";
-            Fecha = "";
-            Hora = "";
+            Fecha = DateTime.Now;
             imagen.Source = "photos";
             Foto = "";
             Audio = "";
         }
 
         private string ValidarCampos()
-        {
+        { 
+            DateTime ahora = DateTime.Now;
+            //DateTime fecha = _Fecha;
+            TimeSpan hora = _Hora;
+
+            //DateTime _fechahora = fecha + hora;
+
             if (string.IsNullOrEmpty(Descripcion))
             {
                 return "Debe ingresar la descripción";
-            }
+            }/*else if (_fechahora <= ahora)
+            {
+                return "No puede seleccionar una fecha y hora anterior";
+            }*/
             
-
             return "OK";
         }
 
@@ -306,13 +315,17 @@ namespace BGRecordatorios.ViewModels
                 await audioRecorderService.StopRecording();
                 saveAudio();
 
+                if (await Application.Current.MainPage.DisplayAlert("Audio", "¿Desea reproducir el audio?", "SI", "NO"))
+                {
+                    audioPlayer.Play(audioRecorderService.GetAudioFilePath());
+                }
             }
             else
             {
                 await audioRecorderService.StartRecording();
             }
         }
-
+        
         #endregion
 
         #region FUNCIONES
@@ -320,7 +333,7 @@ namespace BGRecordatorios.ViewModels
         public ICommand GuardarCommand { get; set; }
         public ICommand ListarCommand { get; set; }
         public ICommand GrabarCommand { get; set; }
-        public ICommand DetenerCommand { get; set; }
+        public ICommand DetenerCommand { get; set; }       
         #endregion
     }
 }

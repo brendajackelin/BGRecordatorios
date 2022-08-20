@@ -46,7 +46,7 @@ namespace BGRecordatorios.Services
                             {
                                 Id = item.Key, // ID
                                 Descripcion = item.Object.Descripcion,
-                                //Fecha = item.Object.Fecha,
+                                Fecha = item.Object.Fecha,
                                 Foto = item.Object.Foto,
                                 Audio = item.Object.Audio
                             }).ToList();

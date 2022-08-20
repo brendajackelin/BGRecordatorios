@@ -9,6 +9,7 @@ using BGRecordatorios.Models;
 using BGRecordatorios.Services;
 using BGRecordatorios.Views;
 using Plugin.AudioRecorder;
+using System.Linq;
 
 namespace BGRecordatorios.ViewModels
 {
@@ -77,6 +78,7 @@ namespace BGRecordatorios.ViewModels
             try
             {
                 ListaRecordatorios = await recordatoriosServices.ListarRecordatorio();
+                ListaRecordatorios = Enumerable.Reverse(ListaRecordatorios).ToList();
                 if (ListaRecordatorios.Count == 0)
                 {
                     await Application.Current.MainPage.DisplayAlert("Advertencia", "No hay recordatorios registrados", "Ok");

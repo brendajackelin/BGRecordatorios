@@ -61,9 +61,15 @@
                    Keyboard="Text"/>
 
             <DatePicker x:Name="Fecha"
-                        Format="dd/M/yy"/>
+                        Format="dd/M/yy"
+                        Date="{Binding Fecha}"
+                        
+                        Unfocused="Fecha_Unfocused"/>
             
-            <TimePicker x:Name="Hora"/>
+            <TimePicker x:Name="Hora"
+                        Time="{Binding Hora}"
+                        
+                        Unfocused="Hora_Unfocused"/>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="15">
                 <Button Text="Grabar Audio" 
@@ -71,17 +77,19 @@
                         BackgroundColor="HotPink"
                         TextColor="White"
                         CornerRadius="20"
+                        Clicked="btnGrabar_Clicked"
                         Command="{Binding GrabarCommand}"/>
 
                 <Button Text="Detener Audio" 
-                        x:Name="btnDetener" 
-                        IsEnabled="False"
+                        x:Name="btnDetener"
                         BackgroundColor="HotPink"
                         TextColor="White"
                         CornerRadius="20"
-                        Command="{Binding DetenerCommand}"/>
+                        Clicked="btnDetener_Clicked"
+                        Command="{Binding DetenerCommand}"
+                        IsEnabled="False"/>
             </StackLayout>
-
+            
             <Button Text="Guardar"
                     CornerRadius="10"
                     BackgroundColor="Pink"

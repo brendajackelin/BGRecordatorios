@@ -8,7 +8,7 @@ namespace BGRecordatorios.Models
     {
         public string Id { get; set; }
         public string Descripcion { get; set; }
-        public string Fecha { get; set; }
+        public DateTime Fecha { get; set; }
         public string Foto { get; set; }
         public string Audio { get; set; }
     }
